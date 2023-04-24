@@ -40,7 +40,7 @@ def getFOTMOBShots(url):
 
     # Create a DataFrame to store the team names and join it with the shots data
     teamNames = pd.DataFrame([homeTeam] + [awayTeam])
-    shotsData.join(teamNames.set_index("id"), on="teamId")
+    shotsData['teamName'] = shotsData.join(teamNames.set_index("id"), on="teamId")
 
     # Create new columns for the home team and away team names
     shotsData["homeTeam"] = homeTeam["name"]
