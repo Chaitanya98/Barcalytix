@@ -1,7 +1,9 @@
 # Importing packages
-import pandas as pd
-import requests
 import json
+import requests
+import numpy as np
+import pandas as pd
+
 
 # Creeating a function extracts shots data from a fotmob url for a specific match and returns a pandas dataframe of the shots information
 def getFOTMOBShots(url):
@@ -17,6 +19,9 @@ def getFOTMOBShots(url):
     pandas.DataFrame: A DataFrame containing shot data for the match
     
     """
+    
+    url = "https://www.fotmob.com/match/3918232/matchfacts/barcelona-vs-atletico-madrid"
+    
     # Extracting match ID from match URL
     matchLink = url
     matchId = matchLink.split("/")[4]
@@ -31,12 +36,29 @@ def getFOTMOBShots(url):
     # Creating a pandas DataFrame from shot data    
     shotsData = pd.DataFrame(data["content"]["shotmap"]["shots"])
 
-    # Extracting team names and adding them as columns to the DataFrame
+    # Extract the home team and away team data from the main data dictionary
     homeTeam = data['general']['homeTeam']
     awayTeam = data['general']['awayTeam']
-    teamNames = pd.DataFrame([homeTeam]+[awayTeam])
+
+    # Create a DataFrame to store the team names and join it with the shots data
+    teamNames = pd.DataFrame([homeTeam] + [awayTeam])
     shotsData.join(teamNames.set_index("id"), on="teamId")
+
+    # Create new columns for the home team and away team names
     shotsData["homeTeam"] = homeTeam["name"]
     shotsData["awayTeam"] = awayTeam["name"]
+
+    # Create a new column to indicate whether the shot was taken by the home or away team
+    shotsData['h_a'] = np.where(shotsData["teamId"] == homeTeam["id"], 'h', 'a')
+
+    # Update the 'eventType' column to 'Blocked' for blocked shots
+    shotsData.loc[shotsData['isBlocked'], 'eventType'] = 'Blocked'
+
+    # Calculate the distance from goal
+    shotsData['distanceFromGoal'] = np.sqrt((105 - shotsData['x']) ** 2 + (34 - shotsData['y']) ** 2)
+    
+    # Extract the 'x' and 'y' values from the 'onGoalShot' column
+    shotsData['onGoalX'] = shotsData['onGoalShot'].str['x']
+    shotsData['onGoalY'] = shotsData['onGoalShot'].str['y']
     
     return shotsData
