@@ -19,9 +19,7 @@ def getFOTMOBShots(url):
     pandas.DataFrame: A DataFrame containing shot data for the match
     
     """
-    
-    url = "https://www.fotmob.com/match/3918232/matchfacts/barcelona-vs-atletico-madrid"
-    
+        
     # Extracting match ID from match URL
     matchLink = url
     matchId = matchLink.split("/")[4]
