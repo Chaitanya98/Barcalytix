@@ -6,18 +6,19 @@ import pandas as pd
 
 
 # Creeating a function extracts shots data from a fotmob url for a specific match and returns a pandas dataframe of the shots information
-def getFOTMOBShots(url):
+def getFOTMOBShots(url, returnJSON=False):
     """
     A function that takes in a FOTMOB match URL, extracts the match ID and uses the FOTMOB API
     to fetch shot data for that match. The function then converts the shot data into a pandas DataFrame
     and adds the names of the two teams playing the match.
     
-    Args:
-    url (str): A FOTMOB match URL
+    Parameters:
+    ===========
+        url (str): A FOTMOB match URL
     
     Returns:
-    pandas.DataFrame: A DataFrame containing shot data for the match
-    
+    ========
+        pandas.DataFrame: A DataFrame containing shot data for the match
     """
         
     # Extracting match ID from match URL
@@ -43,7 +44,7 @@ def getFOTMOBShots(url):
     shotsData = shotsData.join(teamNames.set_index("id"), on="teamId")
     
     # Rename the `name` column to teamName
-    shotsData.rename(column={'name':'teamName'}, inplace=True)
+    shotsData.rename(columns={'name':'teamName'}, inplace=True)
 
     # Create new columns for the home team and away team names
     shotsData["homeTeam"] = homeTeam["name"]
@@ -59,7 +60,10 @@ def getFOTMOBShots(url):
     shotsData['distanceFromGoal'] = np.sqrt((105 - shotsData['x']) ** 2 + (34 - shotsData['y']) ** 2)
     
     # Extract the 'x' and 'y' values from the 'onGoalShot' column
-    shotsData['onGoalX'] = shotsData['onGoalShot'].str['x']
-    shotsData['onGoalY'] = shotsData['onGoalShot'].str['y']
+    shotsData['onGoalX'] = shotsData['onGoalShot'].str['x']/2
+    shotsData['onGoalY'] = shotsData['onGoalShot'].str['y']/(2/3)
     
-    return shotsData
+    if returnJSON:
+        return shotsData, data
+    else:        
+        return shotsData
