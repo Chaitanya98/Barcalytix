@@ -1,6 +1,7 @@
 # -----------------------------------------------------
 # Importing packages
 # -----------------------------------------------------
+
 import mplsoccer
 import numpy as np
 import pandas as pd
@@ -16,6 +17,7 @@ warnings.filterwarnings("ignore")
 # -----------------------------------------------------
 # Creating Helper functions to plot the Shot Map
 # -----------------------------------------------------
+
 def add_shot_legend_OT(ax, shotColor):
     """
     Add a shot legend to a Matplotlib axis object for on target shots.
