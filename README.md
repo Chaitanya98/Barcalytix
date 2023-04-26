@@ -8,7 +8,7 @@ Barcalytix Twitter account was created to provide my fellow culés and other foo
 
 This repository contains,
 
-- A `Files & Python Notebooks` folder which contains Python notebooks and data files used to generate the visualizations and analysis presented on the Barcalytix Twitter account.
+- A `Files & Python Notebooks` folder which contains Python notebooks and code files used to generate the visualizations and analysis presented on the Barcalytix Twitter account.
 - A `Data` which folder contains some of the data used in the analysis and visualizations.
 - A `Fonts` folder that contains custom fonts used in the visualizations.
 - A `Visualizations` folder which contains a selection of visualizations created for the Barcalytix Twitter account.
