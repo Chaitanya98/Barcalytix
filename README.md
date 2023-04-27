@@ -2,7 +2,7 @@ Welcome to the code repository for the Barcalytix Twitter account! This reposito
 
 ## Purpose
 
-Barcalytix Twitter account was created to provide my fellow culés and other football fans with insightful and informative content related to the team's performance. My focus is on using data and analytics to understand the team's tactics, strategy, and performance, and to communicate these insights to my followers in an engaging and accessible way.
+Barcalytix Twitter account was created to provide my fellow culés and other football fans with insightful and informative content related to the FC Barcelona's performance. My focus is on using data and analytics to understand the team's tactics, strategy, and performance, and to communicate these insights to my followers in an engaging and accessible way.
 
 ## Contents
 
